@@ -6,17 +6,17 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "trfm-bkend"  #s3 bucket name 
-    key = "terraform.tfstate"  #path within the bucket(oobject key)
-    region = "us-east-1"
+    bucket         = "trfm-bkend"        #s3 bucket name 
+    key            = "terraform.tfstate" #path within the bucket(oobject key)
+    region         = "us-east-1"
     dynamodb_table = "state-lock"
-    encrypt = true
-  } 
+    encrypt        = true
+  }
 }
 
- provider "aws" {
-    region = "us-east-1"
-} 
+provider "aws" {
+  region = "us-east-1"
+}
 
 resource "aws_security_group" "ssh_sg" {
   name        = "ssh_access_sg"
@@ -28,7 +28,7 @@ resource "aws_security_group" "ssh_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Restrict this to your IP for security, e.g., ["203.0.113.0/24"]
+    cidr_blocks = ["0.0.0.0/0"] # Restrict this to your IP for security, e.g., ["203.0.113.0/24"]
   }
 
   egress {
@@ -46,13 +46,13 @@ resource "aws_security_group" "ssh_sg" {
 
 
 module "ec2_instance" {
-  source = "terraform-aws-modules/ec2-instance/aws"
+  source  = "terraform-aws-modules/ec2-instance/aws"
   version = "6.0.2"
 
-  name = "local-server"
+  name          = "local-server"
   instance_type = "t3.small"
-  key_name = "jul25"
-  subnet_id = "subnet-0bedad30cda514afd"
+  key_name      = "jul25"
+  subnet_id     = "subnet-0bedad30cda514afd"
 
   user_data = <<-EOF
   #!/bin/bash
