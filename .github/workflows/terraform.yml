@@ -69,7 +69,7 @@ jobs:
       # On push to "main", build or change infrastructure according to Terraform configuration files
     - name: Terraform Apply
       run: | 
-        if [ "${{ github.event.inputs.action }}" == "apply" ]; then terraform apply -auto-approve tfplan 
+        if [ "${{ github.event.inputs.action }}" == "apply" ]; then terraform apply -auto-approve  
         elif [ "${{ github.event.inputs.action }}" == "destroy" ]; then terraform destroy -auto-approve -input=false
         else
           echo "Invalid action"
