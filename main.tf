@@ -51,18 +51,16 @@ module "ec2_instance" {
 
   name          = "local-server"
   instance_type = "t3.small"
+  ami           = "ami-020cba7c55df1f615"
   key_name      = "26july"
   subnet_id     = "subnet-0bedad30cda514afd"
 
   user_data = <<-EOF
   #!/bin/bash
-  yum update -y
+  sudo apt update -y
   touch sudarshan
   mkdir -p /home/ec2-user
-  chmod 777 /home/ec2-user
-  echo "This is a test file" > /home/ec2-user/sudarshan
   echo "Hello, World!" > /home/ec2-user/sudarshan
-  mkdir demoScripting
   chown ec2-user:ec2-user /home/ec2-user/sudarshan
   EOF 
 
